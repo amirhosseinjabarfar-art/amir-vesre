@@ -1,130 +1,144 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Amir Launcher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Amir Launcher | لانچر امیر</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
 
-html{scroll-behavior:smooth}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Vazirmatn",sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
-    font-family:"Vazirmatn",sans-serif;
-    background:#060814;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(0,140,255,.12),transparent 28%),
+        radial-gradient(circle at 80% 80%,rgba(145,70,255,.12),transparent 30%),
+        #050713;
     color:#fff;
+    min-height:100vh;
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
-.bg{
-    position:fixed;
-    inset:0;
-    z-index:-20;
-    overflow:hidden;
-    background:
-    radial-gradient(circle at 15% 15%,rgba(0,150,255,.15),transparent 30%),
-    radial-gradient(circle at 85% 20%,rgba(125,55,255,.16),transparent 32%),
-    radial-gradient(circle at 50% 100%,rgba(0,255,210,.08),transparent 35%),
-    #060814;
-}
+/* ================= BACKGROUND ================= */
 
-.grid{
-    position:absolute;
-    width:200%;
-    height:200%;
-    left:-50%;
-    top:-30%;
-    background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:55px 55px;
-    transform:perspective(550px) rotateX(62deg);
-    animation:gridMove 12s linear infinite;
-}
-
-@keyframes gridMove{
-    from{transform:perspective(550px) rotateX(62deg) translateY(0)}
-    to{transform:perspective(550px) rotateX(62deg) translateY(55px)}
-}
-
-.glow{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(90px);
-    opacity:.35;
-    animation:glowFloat 9s ease-in-out infinite;
-}
-
-.glow1{
-    width:300px;height:300px;
-    background:#0077ff;
-    left:-100px;top:10%;
-}
-
-.glow2{
-    width:350px;height:350px;
-    background:#803cff;
-    right:-120px;top:40%;
-    animation-delay:2s;
-}
-
-.glow3{
-    width:250px;height:250px;
-    background:#00e1c3;
-    left:40%;bottom:-120px;
-    animation-delay:4s;
-}
-
-@keyframes glowFloat{
-    0%,100%{transform:translate(0,0) scale(1)}
-    50%{transform:translate(45px,-40px) scale(1.2)}
-}
-
-/* PARTICLES */
-.particles{
+.bg-grid{
     position:fixed;
     inset:0;
     z-index:-5;
+    opacity:.22;
+    background-image:
+        linear-gradient(rgba(0,170,255,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,170,255,.12) 1px,transparent 1px);
+    background-size:50px 50px;
+    animation:gridMove 15s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        background-position:0 0;
+    }
+    to{
+        background-position:50px 50px;
+    }
+}
+
+.glow{
+    position:fixed;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.15;
     pointer-events:none;
+    z-index:-4;
+}
+
+.glow.one{
+    background:#008cff;
+    top:-150px;
+    left:-120px;
+    animation:floatGlow 7s infinite alternate;
+}
+
+.glow.two{
+    background:#8b35ff;
+    bottom:-180px;
+    right:-100px;
+    animation:floatGlow 9s infinite alternate-reverse;
+}
+
+@keyframes floatGlow{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(80px,60px) scale(1.2);
+    }
+}
+
+/* ================= PARTICLES ================= */
+
+.particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
 }
 
 .particle{
     position:absolute;
+    width:3px;
+    height:3px;
+    background:#45c8ff;
     border-radius:50%;
-    background:white;
-    box-shadow:0 0 12px white;
-    animation:particleUp linear infinite;
-    opacity:.5;
+    box-shadow:0 0 12px #00aaff;
+    animation:particleFloat linear infinite;
 }
 
-@keyframes particleUp{
-    from{transform:translateY(110vh) scale(.3);opacity:0}
-    15%{opacity:.8}
-    80%{opacity:.5}
-    to{transform:translateY(-10vh) scale(1);opacity:0}
+@keyframes particleFloat{
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+    15%{
+        opacity:1;
+    }
+    85%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header{
-    position:fixed;
+    position:sticky;
     top:0;
-    left:0;
-    right:0;
-    height:78px;
     z-index:1000;
+    height:76px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     padding:0 6%;
-    background:rgba(5,7,18,.7);
-    backdrop-filter:blur(22px);
+    background:rgba(5,7,19,.75);
+    backdrop-filter:blur(20px);
     border-bottom:1px solid rgba(255,255,255,.08);
 }
 
@@ -133,30 +147,40 @@ header{
     align-items:center;
     gap:12px;
     cursor:pointer;
+    user-select:none;
 }
 
-.logoBox{
-    width:45px;
-    height:45px;
-    border-radius:14px;
-    display:grid;
-    place-items:center;
-    font-size:23px;
+.logo-icon{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
     font-weight:900;
-    background:linear-gradient(135deg,#0095ff,#753cff);
-    box-shadow:0 0 35px rgba(0,140,255,.4);
-    animation:logoPulse 2.5s infinite;
+    background:linear-gradient(135deg,#00aaff,#743cff);
+    box-shadow:
+        0 0 20px rgba(0,170,255,.35),
+        inset 0 0 15px rgba(255,255,255,.15);
+    animation:logoPulse 3s infinite;
 }
 
 @keyframes logoPulse{
-    0%,100%{box-shadow:0 0 20px rgba(0,140,255,.35)}
-    50%{box-shadow:0 0 50px rgba(120,60,255,.7)}
+    0%,100%{
+        box-shadow:0 0 20px rgba(0,170,255,.35);
+    }
+    50%{
+        box-shadow:
+            0 0 35px rgba(0,170,255,.7),
+            0 0 60px rgba(116,60,255,.25);
+    }
 }
 
-.logoText{
+.logo-text{
+    font-size:20px;
     font-weight:900;
-    font-size:22px;
-    background:linear-gradient(90deg,#53d3ff,#a16aff);
+    background:linear-gradient(90deg,#fff,#58cfff,#9c70ff);
     -webkit-background-clip:text;
     color:transparent;
 }
@@ -166,83 +190,94 @@ nav{
     gap:8px;
 }
 
-nav button{
+.nav-btn{
     border:0;
     background:transparent;
-    color:#9ba4c0;
+    color:#bfc9dc;
     padding:11px 16px;
     border-radius:12px;
-    font-family:inherit;
     cursor:pointer;
     transition:.3s;
+    font-size:14px;
 }
 
-nav button:hover{
+.nav-btn:hover,
+.nav-btn.active{
     color:#fff;
-    background:rgba(255,255,255,.07);
+    background:rgba(0,170,255,.1);
+    box-shadow:0 0 20px rgba(0,170,255,.1);
 }
 
-/* PAGES */
+/* ================= PAGES ================= */
+
 .page{
     display:none;
-    min-height:100vh;
-    padding-top:78px;
-    animation:pageIn .65s cubic-bezier(.16,1,.3,1);
+    min-height:calc(100vh - 76px);
+    animation:pageIn .5s ease;
 }
 
-.page.active{display:block}
+.page.active{
+    display:block;
+}
 
 @keyframes pageIn{
-    from{opacity:0;transform:translateY(25px) scale(.98)}
-    to{opacity:1;transform:none}
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.99);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
-/* HERO */
+/* ================= HOME ================= */
+
 .hero{
-    min-height:calc(100vh - 78px);
+    max-width:1200px;
+    margin:auto;
+    min-height:calc(100vh - 76px);
     display:flex;
-    align-items:center;
+    flex-direction:column;
     justify-content:center;
-    text-align:center;
-    padding:70px 20px;
-    position:relative;
-}
-
-.heroContent{max-width:900px}
-
-.badge{
-    display:inline-flex;
     align-items:center;
-    gap:9px;
-    padding:9px 17px;
-    border:1px solid rgba(90,190,255,.25);
-    background:rgba(0,140,255,.08);
-    border-radius:50px;
-    color:#6fd2ff;
-    font-size:14px;
-    margin-bottom:25px;
-    animation:badgeFloat 3s ease-in-out infinite;
+    text-align:center;
+    padding:60px 20px;
 }
 
-.badgeDot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#38ffb0;
-    box-shadow:0 0 15px #38ffb0;
+.hero-badge{
+    padding:9px 17px;
+    border:1px solid rgba(0,180,255,.35);
+    background:rgba(0,160,255,.08);
+    border-radius:999px;
+    color:#6bd5ff;
+    font-size:13px;
+    margin-bottom:22px;
+    box-shadow:0 0 25px rgba(0,160,255,.08);
+    animation:badgeFloat 3s infinite ease-in-out;
 }
 
 @keyframes badgeFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-5px)}
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-7px);
+    }
 }
 
 .hero h1{
-    font-size:clamp(55px,11vw,115px);
-    line-height:.95;
+    font-size:clamp(42px,8vw,88px);
+    line-height:1;
     font-weight:900;
-    letter-spacing:-5px;
-    background:linear-gradient(90deg,#fff,#55d8ff,#8d55ff,#fff);
+    margin-bottom:25px;
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #46caff,
+        #8f5dff,
+        #ffffff
+    );
     background-size:300%;
     -webkit-background-clip:text;
     color:transparent;
@@ -250,721 +285,799 @@ nav button:hover{
 }
 
 @keyframes titleGradient{
-    to{background-position:300%}
-}
-
-.hero h2{
-    margin-top:25px;
-    font-size:clamp(18px,3vw,28px);
-    color:#a7afca;
+    0%{background-position:0%}
+    100%{background-position:300%}
 }
 
 .hero p{
-    max-width:680px;
-    margin:18px auto;
+    max-width:720px;
+    color:#9eabc1;
     line-height:2;
-    color:#707993;
+    font-size:16px;
 }
 
-.heroButtons{
+.hero-buttons{
     display:flex;
-    justify-content:center;
     gap:14px;
-    flex-wrap:wrap;
     margin-top:32px;
+    flex-wrap:wrap;
+    justify-content:center;
 }
 
-/* BUTTONS */
-.btn{
+.main-btn{
+    border:0;
+    padding:14px 24px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:800;
+    color:#fff;
+    transition:.3s;
     position:relative;
     overflow:hidden;
-    border:0;
-    padding:15px 27px;
-    border-radius:15px;
-    font-family:inherit;
-    font-weight:800;
-    cursor:pointer;
-    transition:.35s;
 }
 
-.primary{
-    color:#fff;
-    background:linear-gradient(135deg,#008cff,#703cff);
-    box-shadow:0 12px 40px rgba(50,90,255,.3);
+.main-btn.primary{
+    background:linear-gradient(135deg,#008cff,#733cff);
+    box-shadow:0 10px 30px rgba(0,130,255,.25);
 }
 
-.primary:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:0 18px 60px rgba(70,90,255,.5);
-}
-
-.secondary{
-    color:#dce2ff;
+.main-btn.secondary{
     background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.1);
 }
 
-.secondary:hover{
+.main-btn:hover{
     transform:translateY(-4px);
-    background:rgba(255,255,255,.1);
+    box-shadow:0 15px 35px rgba(0,150,255,.25);
 }
 
-.btn::after{
+.main-btn::after{
     content:"";
     position:absolute;
-    width:70px;
-    height:220%;
-    top:-60%;
-    left:-120px;
-    transform:rotate(25deg);
-    background:rgba(255,255,255,.2);
+    top:0;
+    left:-120%;
+    width:70%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transform:skewX(-20deg);
     transition:.7s;
 }
 
-.btn:hover::after{left:130%}
-
-/* SECTIONS */
-.section{
-    padding:100px 7%;
+.main-btn:hover::after{
+    left:140%;
 }
 
-.sectionTitle{
+/* ================= GAMES ================= */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+
+.section-title{
     text-align:center;
     margin-bottom:45px;
 }
 
-.sectionTitle small{
-    color:#59ccff;
-    font-weight:800;
+.section-title h2{
+    font-size:42px;
+    font-weight:900;
+    margin-bottom:10px;
 }
 
-.sectionTitle h2{
-    font-size:clamp(30px,5vw,48px);
-    margin-top:10px;
+.section-title p{
+    color:#8995aa;
 }
 
-.sectionTitle p{
-    color:#707995;
-    margin-top:10px;
-}
-
-/* GAME GRID */
-.gamesGrid{
-    max-width:1150px;
-    margin:auto;
+.games-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(2,1fr);
     gap:25px;
 }
 
-.gameCard{
-    min-height:400px;
-    border-radius:28px;
-    overflow:hidden;
+.game-card{
     position:relative;
+    min-height:300px;
+    padding:28px;
+    border-radius:25px;
+    overflow:hidden;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.09);
     cursor:pointer;
-    border:1px solid rgba(90,180,255,.16);
-    box-shadow:0 20px 80px rgba(0,0,0,.3);
-    transition:.5s cubic-bezier(.16,1,.3,1);
+    transition:.45s cubic-bezier(.2,.8,.2,1);
 }
 
-.gameCard:hover{
-    transform:translateY(-12px) scale(1.02);
-    box-shadow:0 30px 100px rgba(0,120,255,.2);
-}
-
-.amirverseCard{
-    background:
-    radial-gradient(circle at 20% 20%,rgba(0,170,255,.22),transparent 35%),
-    radial-gradient(circle at 90% 80%,rgba(125,55,255,.25),transparent 40%),
-    linear-gradient(145deg,#10182c,#080b18);
-}
-
-.roboCard{
-    background:
-    radial-gradient(circle at 20% 20%,rgba(0,255,190,.2),transparent 35%),
-    radial-gradient(circle at 90% 80%,rgba(0,125,255,.22),transparent 40%),
-    linear-gradient(145deg,#101f25,#080d18);
-}
-
-.cardTop{
-    height:215px;
-    display:grid;
-    place-items:center;
-    position:relative;
-    overflow:hidden;
-}
-
-.cardTop::before{
+.game-card::before{
     content:"";
     position:absolute;
-    width:170px;
-    height:170px;
+    width:180px;
+    height:180px;
     border-radius:50%;
-    filter:blur(65px);
-    opacity:.3;
+    background:#008cff;
+    filter:blur(90px);
+    opacity:.18;
+    top:-70px;
+    right:-70px;
 }
 
-.amirverseCard .cardTop::before{background:#008cff}
-.roboCard .cardTop::before{background:#00ffc8}
-
-.gameLogo{
-    position:relative;
-    z-index:2;
-    width:110px;
-    height:110px;
-    border-radius:32px;
-    display:grid;
-    place-items:center;
-    font-size:57px;
+.game-card:hover{
+    transform:translateY(-10px) rotateX(2deg);
+    border-color:rgba(0,180,255,.4);
     box-shadow:
-    0 0 40px rgba(0,150,255,.4),
-    inset 0 0 25px rgba(255,255,255,.1);
-    animation:gameLogoFloat 3s ease-in-out infinite;
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 30px rgba(0,160,255,.12);
 }
 
-.amirverseCard .gameLogo{
-    background:linear-gradient(135deg,#087cff,#743dff);
-}
-
-.roboCard .gameLogo{
-    background:linear-gradient(135deg,#00c99b,#087cff);
-}
-
-@keyframes gameLogoFloat{
-    0%,100%{transform:translateY(0) rotate(-2deg)}
-    50%{transform:translateY(-9px) rotate(2deg)}
-}
-
-.cardBody{
-    padding:22px;
-    position:relative;
-    z-index:3;
-}
-
-.cardBody h3{font-size:25px}
-
-.cardBody p{
-    color:#78819c;
-    font-size:14px;
-    line-height:1.9;
-    margin-top:8px;
-}
-
-.cardBottom{
+.game-icon{
+    width:75px;
+    height:75px;
+    border-radius:20px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-top:18px;
+    justify-content:center;
+    font-size:35px;
+    margin-bottom:25px;
+    background:linear-gradient(135deg,#008cff,#713cff);
+    box-shadow:0 0 30px rgba(0,150,255,.3);
 }
 
-.cardTag{
-    padding:7px 11px;
-    border-radius:10px;
-    font-size:12px;
+.game-card h3{
+    font-size:27px;
+    margin-bottom:10px;
 }
 
-.amirverseCard .cardTag{
-    background:rgba(0,140,255,.1);
-    color:#65ceff;
+.game-card p{
+    color:#919db2;
+    line-height:1.9;
 }
 
-.roboCard .cardTag{
-    background:rgba(0,230,180,.1);
-    color:#5dffd2;
+.card-arrow{
+    position:absolute;
+    left:25px;
+    bottom:25px;
+    font-size:25px;
+    transition:.3s;
 }
 
-.openText{
-    color:#fff;
-    font-weight:800;
-    font-size:13px;
+.game-card:hover .card-arrow{
+    transform:translateX(-8px);
 }
 
-/* GAME PAGE */
-.gamePage{
-    padding:100px 7%;
+/* ================= DETAIL ================= */
+
+.detail{
+    max-width:1100px;
+    margin:auto;
+    padding:70px 20px;
 }
 
-.backButton{
+.back-btn{
     border:1px solid rgba(255,255,255,.1);
     background:rgba(255,255,255,.05);
-    color:#cbd2eb;
-    padding:11px 17px;
-    border-radius:13px;
-    font-family:inherit;
+    color:#fff;
+    padding:10px 17px;
+    border-radius:12px;
     cursor:pointer;
-    transition:.3s;
+    margin-bottom:35px;
+}
+
+.detail-box{
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    padding:40px;
+    box-shadow:0 20px 70px rgba(0,0,0,.25);
+}
+
+.detail-icon{
+    width:90px;
+    height:90px;
+    border-radius:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:43px;
+    background:linear-gradient(135deg,#008cff,#713cff);
+    box-shadow:0 0 40px rgba(0,150,255,.3);
     margin-bottom:25px;
 }
 
-.backButton:hover{
-    background:rgba(255,255,255,.1);
-    transform:translateX(5px);
-}
-
-.gameHero{
-    max-width:1150px;
-    margin:auto;
-    min-height:470px;
-    border-radius:35px;
-    overflow:hidden;
-    position:relative;
-    border:1px solid rgba(100,190,255,.16);
-    box-shadow:0 30px 120px rgba(0,0,0,.4);
-}
-
-.amirverseHero{
-    background:
-    radial-gradient(circle at 15% 30%,rgba(0,157,255,.25),transparent 35%),
-    radial-gradient(circle at 90% 70%,rgba(125,55,255,.25),transparent 38%),
-    linear-gradient(135deg,#10182b,#070a16);
-}
-
-.roboHero{
-    background:
-    radial-gradient(circle at 15% 30%,rgba(0,255,190,.2),transparent 35%),
-    radial-gradient(circle at 90% 70%,rgba(0,100,255,.25),transparent 38%),
-    linear-gradient(135deg,#0c2021,#070a16);
-}
-
-.gameHero::before{
-    content:"";
-    position:absolute;
-    width:500px;
-    height:500px;
-    border:1px solid rgba(80,180,255,.08);
-    border-radius:50%;
-    right:-180px;
-    top:-150px;
-    animation:heroRing 12s linear infinite;
-}
-
-.gameHero::after{
-    content:"";
-    position:absolute;
-    width:300px;
-    height:300px;
-    border:1px solid rgba(130,70,255,.1);
-    border-radius:50%;
-    left:-100px;
-    bottom:-120px;
-    animation:heroRing 8s linear infinite reverse;
-}
-
-@keyframes heroRing{
-    to{transform:rotate(360deg)}
-}
-
-.gameHeroContent{
-    min-height:470px;
-    padding:55px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    position:relative;
-    z-index:5;
-}
-
-.gameHeroIcon{
-    width:100px;
-    height:100px;
-    border-radius:28px;
-    display:grid;
-    place-items:center;
-    font-size:52px;
-    box-shadow:0 0 60px rgba(0,130,255,.4);
-    animation:heroIcon 3s ease-in-out infinite;
-}
-
-.amirverseHero .gameHeroIcon{
-    background:linear-gradient(135deg,#008cff,#753cff);
-}
-
-.roboHero .gameHeroIcon{
-    background:linear-gradient(135deg,#00d6a3,#087cff);
-}
-
-@keyframes heroIcon{
-    0%,100%{transform:translateY(0) rotate(0)}
-    50%{transform:translateY(-12px) rotate(3deg)}
-}
-
-.gameHero h1{
-    margin-top:25px;
-    font-size:clamp(40px,7vw,75px);
-    font-weight:900;
-}
-
-.subtitle{
-    margin-top:8px;
-    font-size:18px;
-}
-
-.amirverseHero .subtitle{color:#7bcfff}
-.roboHero .subtitle{color:#5dffd2}
-
-.gameHeroDescription{
-    max-width:780px;
-    margin-top:18px;
-    color:#8b94af;
-    line-height:2;
-}
-
-.actionRow{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-top:28px;
-}
-
-.actionButton{
-    border:0;
-    border-radius:14px;
-    padding:14px 22px;
-    font-family:inherit;
-    font-weight:800;
-    cursor:pointer;
-    transition:.35s;
-}
-
-.install{
-    color:#fff;
-    background:linear-gradient(135deg,#009cff,#6d3cff);
-    box-shadow:0 10px 35px rgba(0,130,255,.3);
-}
-
-.roboHero .install{
-    background:linear-gradient(135deg,#00c99b,#087cff);
-}
-
-.install:hover{
-    transform:translateY(-4px);
-    box-shadow:0 15px 50px rgba(80,70,255,.5);
-}
-
-.save{
-    color:#dfe5ff;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.1);
-}
-
-.save:hover{
-    transform:translateY(-4px);
-}
-
-.comment{
-    color:#dfe5ff;
-    background:rgba(0,220,180,.08);
-    border:1px solid rgba(0,220,180,.15);
-}
-
-.comment:hover{
-    transform:translateY(-4px);
-}
-
-/* INFO */
-.infoGrid{
-    max-width:1150px;
-    margin:30px auto 0;
-    display:grid;
-    grid-template-columns:1.5fr .8fr;
-    gap:25px;
-}
-
-.infoBox{
-    padding:30px;
-    border-radius:25px;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.infoBox h2{
-    font-size:24px;
+.detail h1{
+    font-size:45px;
     margin-bottom:15px;
 }
 
-.infoBox p{
-    color:#7e87a1;
-    line-height:2.1;
+.detail-description{
+    color:#a5b0c2;
+    line-height:2;
+    font-size:16px;
+    max-width:850px;
 }
 
-.rating{
+.detail-buttons{
     display:flex;
-    align-items:center;
-    gap:7px;
-    font-size:25px;
-    margin-top:15px;
-}
-
-.star{
-    color:#ffc94d;
-    text-shadow:0 0 15px rgba(255,200,50,.5);
-}
-
-.gameMeta{
-    margin-top:20px;
-    display:grid;
     gap:12px;
+    flex-wrap:wrap;
+    margin-top:30px;
 }
 
-.metaItem{
-    padding:13px;
+.detail-btn{
+    border:0;
     border-radius:13px;
-    background:rgba(255,255,255,.035);
-    color:#8b94ae;
+    padding:13px 20px;
+    color:white;
+    cursor:pointer;
+    font-weight:700;
+    transition:.3s;
 }
 
-.metaItem strong{color:#dce3ff}
+.detail-btn.launch{
+    background:linear-gradient(135deg,#008cff,#693cff);
+}
 
-/* COMMENTS */
+.detail-btn.save{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.detail-btn.comment{
+    background:rgba(50,210,150,.12);
+    border:1px solid rgba(50,210,150,.25);
+}
+
+.detail-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ================= COMMENTS ================= */
+
 .comments{
-    max-width:1150px;
-    margin:25px auto 0;
+    margin-top:40px;
+    padding-top:30px;
+    border-top:1px solid rgba(255,255,255,.08);
 }
 
-.commentForm{
+.comments h3{
+    margin-bottom:18px;
+}
+
+.comment-box{
     display:flex;
     gap:10px;
-    margin-top:18px;
 }
 
-.commentInput{
+.comment-box input{
     flex:1;
+    min-width:0;
+    padding:14px 16px;
+    border-radius:13px;
     border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.04);
-    color:white;
-    padding:14px;
-    border-radius:14px;
-    font-family:inherit;
     outline:none;
+    background:rgba(0,0,0,.2);
+    color:#fff;
 }
 
-.commentInput:focus{
-    border-color:rgba(70,180,255,.4);
-    box-shadow:0 0 25px rgba(0,140,255,.08);
-}
-
-.commentSend{
+.comment-box button{
     border:0;
-    border-radius:14px;
-    padding:0 22px;
-    background:linear-gradient(135deg,#008cff,#743cff);
+    border-radius:13px;
+    padding:0 20px;
+    background:#008cff;
     color:white;
-    font-family:inherit;
-    font-weight:800;
     cursor:pointer;
 }
 
-.commentList{
+.comment-list{
     margin-top:20px;
-    display:grid;
+    display:flex;
+    flex-direction:column;
     gap:10px;
 }
 
-.commentItem{
-    padding:16px;
-    border-radius:15px;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.06);
-    color:#8992ac;
+.comment-item{
+    padding:14px;
+    background:rgba(255,255,255,.04);
+    border-radius:12px;
+    color:#c3ccda;
 }
 
-/* TOAST */
+/* ================= CREATORS ================= */
+
+.creators-page{
+    position:relative;
+    min-height:calc(100vh - 76px);
+    overflow:hidden;
+}
+
+.creator-bg-circle{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    filter:blur(5px);
+}
+
+.creator-bg-circle.c1{
+    width:280px;
+    height:280px;
+    background:rgba(0,160,255,.16);
+    top:80px;
+    right:5%;
+    animation:creatorOrb 6s infinite alternate;
+}
+
+.creator-bg-circle.c2{
+    width:330px;
+    height:330px;
+    background:rgba(130,55,255,.14);
+    bottom:30px;
+    left:4%;
+    animation:creatorOrb 8s infinite alternate-reverse;
+}
+
+@keyframes creatorOrb{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        transform:translate(35px,-25px) scale(1.15);
+    }
+}
+
+.creators-container{
+    position:relative;
+    z-index:2;
+    max-width:1150px;
+    margin:auto;
+    padding:75px 20px 90px;
+}
+
+.creators-heading{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.creators-heading .mini{
+    display:inline-block;
+    padding:8px 15px;
+    border-radius:999px;
+    background:rgba(0,160,255,.08);
+    border:1px solid rgba(0,170,255,.2);
+    color:#55caff;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.creators-heading h1{
+    font-size:clamp(40px,7vw,70px);
+    font-weight:900;
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #50caff,
+        #9b65ff,
+        #fff
+    );
+    background-size:250%;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:titleGradient 5s linear infinite;
+}
+
+.creators-heading p{
+    color:#8d99ae;
+    margin-top:15px;
+}
+
+.creators-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.creator-card{
+    position:relative;
+    min-height:300px;
+    padding:35px 25px;
+    text-align:center;
+    border-radius:27px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.025)
+        );
+    border:1px solid rgba(255,255,255,.09);
+    overflow:hidden;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+    animation:creatorAppear .8s both;
+}
+
+.creator-card:nth-child(1){
+    animation-delay:.1s;
+}
+
+.creator-card:nth-child(2){
+    animation-delay:.25s;
+}
+
+.creator-card:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes creatorAppear{
+    from{
+        opacity:0;
+        transform:translateY(50px) scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.creator-card::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    background:#008cff;
+    border-radius:50%;
+    filter:blur(75px);
+    opacity:.12;
+    top:-90px;
+    right:-80px;
+    transition:.5s;
+}
+
+.creator-card:hover{
+    transform:translateY(-12px) scale(1.025);
+    border-color:rgba(70,195,255,.4);
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35),
+        0 0 35px rgba(0,150,255,.12);
+}
+
+.creator-card:hover::before{
+    transform:scale(1.5);
+    opacity:.2;
+}
+
+.creator-avatar{
+    width:90px;
+    height:90px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    font-weight:900;
+    color:#fff;
+    background:linear-gradient(135deg,#008cff,#783cff);
+    border:3px solid rgba(255,255,255,.12);
+    box-shadow:
+        0 0 0 8px rgba(0,150,255,.05),
+        0 0 35px rgba(0,150,255,.28);
+    transition:.5s;
+}
+
+.creator-card:hover .creator-avatar{
+    transform:rotate(8deg) scale(1.1);
+    box-shadow:
+        0 0 0 12px rgba(0,150,255,.06),
+        0 0 50px rgba(0,150,255,.5);
+}
+
+.creator-card h2{
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.creator-role{
+    display:inline-block;
+    padding:8px 13px;
+    border-radius:10px;
+    background:rgba(0,150,255,.08);
+    color:#55caff;
+    border:1px solid rgba(0,150,255,.15);
+    font-size:13px;
+    line-height:1.7;
+}
+
+.creator-number{
+    position:absolute;
+    top:16px;
+    left:18px;
+    font-size:13px;
+    color:rgba(255,255,255,.25);
+    font-weight:800;
+}
+
+.creator-line{
+    width:0;
+    height:2px;
+    margin:25px auto 0;
+    background:linear-gradient(90deg,#008cff,#8b4dff);
+    box-shadow:0 0 12px rgba(0,150,255,.5);
+    transition:.5s;
+}
+
+.creator-card:hover .creator-line{
+    width:80%;
+}
+
+/* ================= ABOUT ================= */
+
+.about-box{
+    max-width:900px;
+    margin:auto;
+    padding:50px;
+    border-radius:28px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+    text-align:center;
+}
+
+.about-box h1{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.about-box p{
+    color:#9ca8bb;
+    line-height:2;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+    padding:35px 20px;
+    border-top:1px solid rgba(255,255,255,.07);
+    color:#68748a;
+    font-size:13px;
+}
+
+footer strong{
+    color:#57caff;
+}
+
+/* ================= TOAST ================= */
+
 .toast{
     position:fixed;
     bottom:25px;
-    left:50%;
-    transform:translate(-50%,120px);
-    opacity:0;
+    right:25px;
     z-index:9999;
-    background:rgba(16,20,38,.94);
-    border:1px solid rgba(255,255,255,.12);
-    backdrop-filter:blur(20px);
-    padding:15px 23px;
-    border-radius:16px;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);
-    transition:.5s cubic-bezier(.16,1,.3,1);
+    padding:14px 20px;
+    border-radius:14px;
+    background:rgba(15,20,35,.94);
+    border:1px solid rgba(0,170,255,.25);
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    color:#fff;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
 }
 
 .toast.show{
+    transform:translateY(0);
     opacity:1;
-    transform:translate(-50%,0);
 }
 
-/* FOOTER */
-footer{
-    padding:40px 7%;
-    text-align:center;
-    color:#555e79;
-    border-top:1px solid rgba(255,255,255,.07);
-}
+/* ================= RESPONSIVE ================= */
 
-footer strong{color:#9099b5}
+@media(max-width:850px){
 
-/* RESPONSIVE */
-@media(max-width:800px){
-
-    nav{display:none}
-
-    .gameHeroContent{padding:35px 25px}
-
-    .infoGrid{grid-template-columns:1fr}
-
-    .section,.gamePage{
-        padding-left:5%;
-        padding-right:5%;
+    header{
+        padding:0 4%;
     }
 
-    .commentForm{flex-direction:column}
+    .logo-text{
+        font-size:17px;
+    }
 
-    .commentSend{height:48px}
+    nav{
+        gap:3px;
+    }
+
+    .nav-btn{
+        padding:9px 9px;
+        font-size:12px;
+    }
+
+    .games-grid{
+        grid-template-columns:1fr;
+    }
+
+    .creators-grid{
+        grid-template-columns:1fr;
+    }
+
+    .creator-card{
+        min-height:270px;
+    }
+
+    .detail-box{
+        padding:28px 20px;
+    }
+
+    .detail h1{
+        font-size:34px;
+    }
 }
 
-@media(max-width:500px){
+@media(max-width:550px){
 
-    header{padding:0 18px}
+    header{
+        height:auto;
+        min-height:70px;
+        padding:10px 12px;
+        flex-direction:column;
+        gap:10px;
+    }
 
-    .logoText{font-size:19px}
+    nav{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
 
-    .hero{padding:45px 18px}
+    .page{
+        min-height:calc(100vh - 115px);
+    }
 
-    .hero h1{letter-spacing:-3px}
+    .hero{
+        min-height:calc(100vh - 115px);
+    }
 
-    .heroButtons{flex-direction:column}
+    .hero h1{
+        font-size:47px;
+    }
 
-    .heroButtons .btn{width:100%}
+    .section-title h2{
+        font-size:34px;
+    }
 
-    .gameHero{border-radius:25px}
+    .comment-box{
+        flex-direction:column;
+    }
 
-    .actionRow{flex-direction:column}
+    .comment-box button{
+        min-height:45px;
+    }
 
-    .actionButton{width:100%}
+    .toast{
+        right:15px;
+        left:15px;
+        bottom:15px;
+        text-align:center;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="bg">
-    <div class="grid"></div>
-    <div class="glow glow1"></div>
-    <div class="glow glow2"></div>
-    <div class="glow glow3"></div>
-</div>
-
+<div class="bg-grid"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
 <div class="particles" id="particles"></div>
+
+<!-- ================= HEADER ================= -->
 
 <header>
 
     <div class="logo" onclick="showPage('home')">
-        <div class="logoBox">A</div>
-        <div class="logoText">Amir Launcher</div>
+        <div class="logo-icon">A</div>
+        <div class="logo-text">Amir Launcher</div>
     </div>
 
     <nav>
-        <button onclick="showPage('home')">خانه</button>
-        <button onclick="showPage('games')">بازی‌ها</button>
-        <button onclick="showPage('about')">درباره</button>
+
+        <button class="nav-btn active" data-page="home" onclick="showPage('home')">
+            خانه
+        </button>
+
+        <button class="nav-btn" data-page="games" onclick="showPage('games')">
+            بازی‌ها
+        </button>
+
+        <button class="nav-btn" data-page="creators" onclick="showPage('creators')">
+            سازندگان
+        </button>
+
+        <button class="nav-btn" data-page="about" onclick="showPage('about')">
+            درباره
+        </button>
+
     </nav>
 
 </header>
 
 
-<!-- HOME -->
-<div class="page active" id="home">
+<!-- ================= HOME ================= -->
 
-    <section class="hero">
+<section class="page active" id="home">
 
-        <div class="heroContent">
+    <div class="hero">
 
-            <div class="badge">
-                <span class="badgeDot"></span>
-                لانچر رسمی بازی‌های امیر
-            </div>
+        <div class="hero-badge">
+            🎮 لانچر اختصاصی بازی‌های امیر
+        </div>
 
-            <h1>AMIR<br>LAUNCHER</h1>
+        <h1>
+            AMIR<br>
+            LAUNCHER
+        </h1>
 
-            <h2>مرکز بازی‌های اختصاصی امیر</h2>
+        <p>
+            وارد دنیای بازی‌های امیر شو؛
+            بازی‌ها را ببین، صفحه اختصاصی هر بازی را باز کن
+            و مستقیماً وارد تجربه بازی شو.
+        </p>
 
-            <p>
-                همه بازی‌های امیر در یک مکان.
-                بازی مورد علاقه‌ات را انتخاب کن و وارد صفحه اختصاصی آن شو.
-            </p>
+        <div class="hero-buttons">
 
-            <div class="heroButtons">
+            <button class="main-btn primary" onclick="showPage('games')">
+                🎮 مشاهده بازی‌ها
+            </button>
 
-                <button class="btn primary"
-                        onclick="showPage('games')">
-                    🎮 مشاهده بازی‌ها
-                </button>
-
-                <button class="btn secondary"
-                        onclick="showToast('✨ بازی‌های بیشتری به‌زودی اضافه می‌شوند')">
-                    ✨ بازی‌های آینده
-                </button>
-
-            </div>
+            <button class="main-btn secondary" onclick="showPage('creators')">
+                👑 سازندگان
+            </button>
 
         </div>
 
-    </section>
+    </div>
 
-</div>
+</section>
 
 
-<!-- GAMES -->
-<div class="page" id="games">
+<!-- ================= GAMES ================= -->
 
-    <section class="section">
+<section class="page" id="games">
 
-        <div class="sectionTitle">
+    <div class="section">
 
-            <small>GAME LIBRARY</small>
+        <div class="section-title">
 
-            <h2>کتابخانه بازی‌ها</h2>
+            <h2>🎮 بازی‌ها</h2>
 
             <p>
-                بازی‌های منتشرشده امیر را از اینجا مشاهده کن.
+                بازی‌های منتشر شده در Amir Launcher
             </p>
 
         </div>
 
-        <div class="gamesGrid">
+        <div class="games-grid">
 
             <!-- AMIRVERSE -->
 
-            <div class="gameCard amirverseCard"
-                 onclick="showPage('amirverse')">
+            <div class="game-card" onclick="showPage('amirverse')">
 
-                <div class="cardTop">
-
-                    <div class="gameLogo">
-                        ⚔️
-                    </div>
-
+                <div class="game-icon">
+                    ⚔️
                 </div>
 
-                <div class="cardBody">
+                <h3>
+                    امیر ورس
+                </h3>
 
-                    <h3>AmirVerse</h3>
+                <p>
+                    یک بازی استراتژی که باید با استراتژی،
+                    منابع و جنگنده‌ها بازی را ببری و دشمنان را شکست بدهی.
+                </p>
 
-                    <p>
-                        یک بازی استراتژی که در آن باید با مدیریت منابع
-                        و تصمیم‌گیری درست، دشمنان را شکست بدهی.
-                    </p>
-
-                    <div class="cardBottom">
-
-                        <span class="cardTag">
-                            استراتژی
-                        </span>
-
-                        <span class="openText">
-                            مشاهده بازی ←
-                        </span>
-
-                    </div>
-
+                <div class="card-arrow">
+                    ←
                 </div>
 
             </div>
@@ -972,385 +1085,334 @@ footer strong{color:#9099b5}
 
             <!-- ROBOFECKR -->
 
-            <div class="gameCard roboCard"
-                 onclick="showPage('robofeckr')">
+            <div class="game-card" onclick="showPage('robofeckr')">
 
-                <div class="cardTop">
-
-                    <div class="gameLogo">
-                        🤖
-                    </div>
-
+                <div class="game-icon">
+                    🧠
                 </div>
 
-                <div class="cardBody">
-
-                    <h3>روبوفکر</h3>
-
-                    <p>
-                        یک بازی معمایی و هوشی که باید با فکر کردن،
-                        حل مسئله و دقت، چالش‌های مختلف را پشت سر بگذاری.
-                    </p>
-
-                    <div class="cardBottom">
-
-                        <span class="cardTag">
-                            معمایی و هوشی
-                        </span>
-
-                        <span class="openText">
-                            مشاهده بازی ←
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</div>
-
-
-<!-- AMIRVERSE -->
-<div class="page" id="amirverse">
-
-    <section class="gamePage">
-
-        <button class="backButton"
-                onclick="showPage('games')">
-            ← برگشت به بازی‌ها
-        </button>
-
-        <div class="gameHero amirverseHero">
-
-            <div class="gameHeroContent">
-
-                <div class="gameHeroIcon">⚔️</div>
-
-                <h1>AmirVerse</h1>
-
-                <div class="subtitle">
-                    بازی استراتژی اختصاصی امیر
-                </div>
-
-                <p class="gameHeroDescription">
-                    امیر ورس یک بازی استراتژی است که باید با استراتژی
-                    همراه با منابع و جنگنده‌ها بازی را برد و دشمنان را شکست داد.
-                </p>
-
-                <div class="actionRow">
-
-                    <button class="actionButton install"
-                            onclick="openGame('https://amirhosseinjabarfar-art.github.io/amir-game/')">
-                        ▶️ نصب / اجرای بازی
-                    </button>
-
-                    <button class="actionButton save"
-                            id="save-amirverse"
-                            onclick="saveGame('amirverse')">
-                        ☆ ذخیره کردن
-                    </button>
-
-                    <button class="actionButton comment"
-                            onclick="focusComment('amirverse')">
-                        💬 نظر دادن
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="infoGrid">
-
-            <div class="infoBox">
-
-                <h2>📖 درباره AmirVerse</h2>
+                <h3>
+                    روبوفکر
+                </h3>
 
                 <p>
-                    امیر ورس یک بازی استراتژی است که باید با استراتژی
-                    همراه با منابع و جنگنده‌ها بازی را برد و دشمنان را شکست داد.
-                    برای پیروزی باید منابع را مدیریت کنی و تصمیم‌های مناسب بگیری.
+                    یک بازی معمایی و هوشی برای به چالش کشیدن
+                    فکر و تمرکز بازیکن.
                 </p>
 
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span style="font-size:14px;color:#727b96">
-                        امتیاز کاربران
-                    </span>
-                </div>
-
-            </div>
-
-            <div class="infoBox">
-
-                <h2>ℹ️ اطلاعات</h2>
-
-                <div class="gameMeta">
-
-                    <div class="metaItem">
-                        🎮 <strong>نام:</strong> AmirVerse
-                    </div>
-
-                    <div class="metaItem">
-                        🧠 <strong>سبک:</strong> استراتژی
-                    </div>
-
-                    <div class="metaItem">
-                        🌐 <strong>اجرا:</strong> تحت وب
-                    </div>
-
-                    <div class="metaItem">
-                        🚀 <strong>وضعیت:</strong> منتشر شده
-                    </div>
-
+                <div class="card-arrow">
+                    ←
                 </div>
 
             </div>
 
         </div>
 
-        <div class="comments">
+    </div>
 
-            <div class="infoBox">
-
-                <h2>💬 نظرات کاربران</h2>
-
-                <p>نظر خودت را درباره AmirVerse بنویس.</p>
-
-                <div class="commentForm">
-
-                    <input id="comment-amirverse"
-                           class="commentInput"
-                           maxlength="150"
-                           placeholder="نظر خود را بنویسید...">
-
-                    <button class="commentSend"
-                            onclick="sendComment('amirverse')">
-                        ارسال نظر
-                    </button>
-
-                </div>
-
-                <div class="commentList"
-                     id="list-amirverse">
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</div>
+</section>
 
 
-<!-- ROBOFECKR -->
-<div class="page" id="robofeckr">
+<!-- ================= AMIRVERSE ================= -->
 
-    <section class="gamePage">
+<section class="page" id="amirverse">
 
-        <button class="backButton"
-                onclick="showPage('games')">
-            ← برگشت به بازی‌ها
+    <div class="detail">
+
+        <button class="back-btn" onclick="showPage('games')">
+            → بازگشت به بازی‌ها
         </button>
 
-        <div class="gameHero roboHero">
+        <div class="detail-box">
 
-            <div class="gameHeroContent">
+            <div class="detail-icon">
+                ⚔️
+            </div>
 
-                <div class="gameHeroIcon">🤖</div>
+            <h1>
+                امیر ورس
+            </h1>
 
-                <h1>روبوفکر</h1>
+            <p class="detail-description">
+                امیر ورس یک بازی استراتژی است که باید با استراتژی
+                همراه با منابع و جنگنده‌ها بازی را برد و دشمنان رو شکست داد.
+            </p>
 
-                <div class="subtitle">
-                    بازی معمایی و هوشی
+            <div class="detail-buttons">
+
+                <button
+                    class="detail-btn launch"
+                    onclick="launchGame('https://amirhosseinjabarfar-art.github.io/amir-game/')">
+                    ▶️ نصب / اجرای بازی
+                </button>
+
+                <button
+                    class="detail-btn save"
+                    onclick="saveGame('amirverse')">
+                    💾 ذخیره بازی
+                </button>
+
+                <button
+                    class="detail-btn comment"
+                    onclick="focusComment('amirverseComment')">
+                    💬 نظر دادن
+                </button>
+
+            </div>
+
+            <div class="comments">
+
+                <h3>
+                    💬 نظرات
+                </h3>
+
+                <div class="comment-box">
+
+                    <input
+                        id="amirverseComment"
+                        type="text"
+                        placeholder="نظر خودت را بنویس...">
+
+                    <button onclick="addComment('amirverseComment','amirverseComments')">
+                        ارسال
+                    </button>
+
                 </div>
 
-                <p class="gameHeroDescription">
-                    روبوفکر یک بازی معمایی و هوشی است که باید با فکر کردن،
-                    حل مسئله، دقت و استفاده از هوش خود، چالش‌های بازی را پشت سر بگذاری.
-                </p>
-
-                <div class="actionRow">
-
-                    <button class="actionButton install"
-                            onclick="openGame('https://amirhosseinjabarfar-art.github.io/robofeckr/')">
-                        ▶️ نصب / اجرای بازی
-                    </button>
-
-                    <button class="actionButton save"
-                            id="save-robofeckr"
-                            onclick="saveGame('robofeckr')">
-                        ☆ ذخیره کردن
-                    </button>
-
-                    <button class="actionButton comment"
-                            onclick="focusComment('robofeckr')">
-                        💬 نظر دادن
-                    </button>
-
-                </div>
+                <div class="comment-list" id="amirverseComments"></div>
 
             </div>
 
         </div>
 
-        <div class="infoGrid">
+    </div>
 
-            <div class="infoBox">
+</section>
 
-                <h2>🧠 درباره روبوفکر</h2>
 
-                <p>
-                    روبوفکر یک بازی معمایی و هوشی است که در آن باید
-                    با فکر کردن و پیدا کردن راه‌حل مناسب، معماها و
-                    چالش‌های مختلف را حل کنی.
-                </p>
+<!-- ================= ROBOFECKR ================= -->
 
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span style="font-size:14px;color:#727b96">
-                        امتیاز کاربران
-                    </span>
-                </div>
+<section class="page" id="robofeckr">
+
+    <div class="detail">
+
+        <button class="back-btn" onclick="showPage('games')">
+            → بازگشت به بازی‌ها
+        </button>
+
+        <div class="detail-box">
+
+            <div class="detail-icon">
+                🧠
+            </div>
+
+            <h1>
+                روبوفکر
+            </h1>
+
+            <p class="detail-description">
+                روبوفکر یک بازی معمایی و هوشی است
+                که بازیکن را با چالش‌های مختلف فکری روبه‌رو می‌کند.
+            </p>
+
+            <div class="detail-buttons">
+
+                <button
+                    class="detail-btn launch"
+                    onclick="launchGame('https://amirhosseinjabarfar-art.github.io/robofeckr/')">
+                    ▶️ نصب / اجرای بازی
+                </button>
+
+                <button
+                    class="detail-btn save"
+                    onclick="saveGame('robofeckr')">
+                    💾 ذخیره بازی
+                </button>
+
+                <button
+                    class="detail-btn comment"
+                    onclick="focusComment('robofeckrComment')">
+                    💬 نظر دادن
+                </button>
 
             </div>
 
-            <div class="infoBox">
+            <div class="comments">
 
-                <h2>ℹ️ اطلاعات</h2>
+                <h3>
+                    💬 نظرات
+                </h3>
 
-                <div class="gameMeta">
+                <div class="comment-box">
 
-                    <div class="metaItem">
-                        🤖 <strong>نام:</strong> روبوفکر
-                    </div>
+                    <input
+                        id="robofeckrComment"
+                        type="text"
+                        placeholder="نظر خودت را بنویس...">
 
-                    <div class="metaItem">
-                        🧠 <strong>سبک:</strong> معمایی و هوشی
-                    </div>
-
-                    <div class="metaItem">
-                        🌐 <strong>اجرا:</strong> تحت وب
-                    </div>
-
-                    <div class="metaItem">
-                        🚀 <strong>وضعیت:</strong> منتشر شده
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="comments">
-
-            <div class="infoBox">
-
-                <h2>💬 نظرات کاربران</h2>
-
-                <p>نظر خودت را درباره روبوفکر بنویس.</p>
-
-                <div class="commentForm">
-
-                    <input id="comment-robofeckr"
-                           class="commentInput"
-                           maxlength="150"
-                           placeholder="نظر خود را بنویسید...">
-
-                    <button class="commentSend"
-                            onclick="sendComment('robofeckr')">
-                        ارسال نظر
+                    <button onclick="addComment('robofeckrComment','robofeckrComments')">
+                        ارسال
                     </button>
 
                 </div>
 
-                <div class="commentList"
-                     id="list-robofeckr">
-                </div>
+                <div class="comment-list" id="robofeckrComments"></div>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
-</div>
+</section>
 
 
-<!-- ABOUT -->
-<div class="page" id="about">
+<!-- ================= CREATORS ================= -->
 
-    <section class="section">
+<section class="page creators-page" id="creators">
 
-        <div class="sectionTitle">
+    <div class="creator-bg-circle c1"></div>
+    <div class="creator-bg-circle c2"></div>
 
-            <small>ABOUT AMIR LAUNCHER</small>
+    <div class="creators-container">
 
-            <h2>درباره Amir Launcher</h2>
+        <div class="creators-heading">
+
+            <div class="mini">
+                ✨ تیم پشت Amir Launcher
+            </div>
+
+            <h1>
+                سازندگان
+            </h1>
 
             <p>
-                مرکز اصلی بازی‌های ساخته‌شده توسط امیر حسین جبارفر.
+                افرادی که در ساخت و توسعه این مجموعه نقش داشته‌اند
             </p>
 
         </div>
 
-        <div class="gamesGrid">
 
-            <div class="infoBox">
+        <div class="creators-grid">
 
-                <h2>🎮 یک لانچر برای همه بازی‌ها</h2>
 
-                <p>
-                    Amir Launcher برای این ساخته شده که تمام بازی‌های
-                    امیر در یک محیط زیبا و مرتب قرار بگیرند.
-                </p>
+            <!-- CREATOR 1 -->
+
+            <div class="creator-card">
+
+                <div class="creator-number">
+                    01
+                </div>
+
+                <div class="creator-avatar">
+                    👨‍💻
+                </div>
+
+                <h2>
+                    امیر حسین جبارفر
+                </h2>
+
+                <div class="creator-role">
+                    کد نویسی
+                </div>
+
+                <div class="creator-line"></div>
 
             </div>
 
-            <div class="infoBox">
 
-                <h2>🚀 در حال توسعه</h2>
+            <!-- CREATOR 2 -->
 
-                <p>
-                    بازی‌های بیشتری در آینده به این لانچر اضافه خواهند شد.
-                </p>
+            <div class="creator-card">
+
+                <div class="creator-number">
+                    02
+                </div>
+
+                <div class="creator-avatar">
+                    🎨
+                </div>
+
+                <h2>
+                    امیر حسین جبارفر
+                </h2>
+
+                <div class="creator-role">
+                    طراحی سایت و لانچر
+                </div>
+
+                <div class="creator-line"></div>
 
             </div>
+
+
+            <!-- CREATOR 3 -->
+
+            <div class="creator-card">
+
+                <div class="creator-number">
+                    03
+                </div>
+
+                <div class="creator-avatar">
+                    🏆
+                </div>
+
+                <h2>
+                    امیر حسام اصحاب
+                </h2>
+
+                <div class="creator-role">
+                    طراحی مسابقات و ایونت ها
+                </div>
+
+                <div class="creator-line"></div>
+
+            </div>
+
 
         </div>
 
-    </section>
+    </div>
 
-</div>
+</section>
 
+
+<!-- ================= ABOUT ================= -->
+
+<section class="page" id="about">
+
+    <div class="section">
+
+        <div class="about-box">
+
+            <h1>
+                درباره Amir Launcher
+            </h1>
+
+            <p>
+                Amir Launcher یک لانچر تحت وب برای نمایش و اجرای
+                بازی‌های ساخته شده توسط تیم امیر است.
+                در این لانچر می‌توان بازی‌ها را مشاهده کرد،
+                وارد صفحه اختصاصی آن‌ها شد و اطلاعات مربوط به هر بازی
+                را مشاهده کرد.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    <strong>Amir Launcher</strong>
-
-    <br>
-
-    مرکز بازی‌های اختصاصی امیر
-
-    <br><br>
-
-    ساخته شده توسط: امیر حسین جبارفر
+    ساخته شده توسط:
+    <strong>
+        امیر حسین جبارفر
+    </strong>
 
 </footer>
 
@@ -1360,34 +1422,7 @@ footer strong{color:#9099b5}
 
 <script>
 
-/* PARTICLES */
-
-const particles=document.getElementById("particles");
-
-for(let i=0;i<90;i++){
-
-    const p=document.createElement("div");
-
-    p.className="particle";
-
-    p.style.left=Math.random()*100+"%";
-
-    const size=1+Math.random()*3;
-
-    p.style.width=size+"px";
-    p.style.height=size+"px";
-
-    p.style.animationDuration=
-        (5+Math.random()*13)+"s";
-
-    p.style.animationDelay=
-        (-Math.random()*15)+"s";
-
-    particles.appendChild(p);
-}
-
-
-/* PAGE NAVIGATION */
+/* ================= PAGE ROUTER ================= */
 
 function showPage(pageId){
 
@@ -1395,146 +1430,114 @@ function showPage(pageId){
         page.classList.remove("active");
     });
 
-    const page=document.getElementById(pageId);
+    const target=document.getElementById(pageId);
 
-    if(page){
-        page.classList.add("active");
+    if(target){
+        target.classList.add("active");
     }
+
+    document.querySelectorAll(".nav-btn").forEach(btn=>{
+        btn.classList.remove("active");
+
+        if(btn.dataset.page===pageId){
+            btn.classList.add("active");
+        }
+    });
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
 }
 
 
-/* OPEN GAME */
+/* ================= GAME LAUNCH ================= */
 
-function openGame(url){
+function launchGame(url){
 
-    showToast("🚀 در حال باز کردن بازی...");
+    showToast("🎮 در حال ورود به بازی...");
 
     setTimeout(()=>{
-        window.location.href=url;
-    },700);
+        window.open(url,"_blank");
+    },450);
+
 }
 
 
-/* SAVE */
+/* ================= SAVE ================= */
 
 function saveGame(game){
 
-    const key="saved_"+game;
+    localStorage.setItem(
+        "saved_"+game,
+        "true"
+    );
 
-    const button=
-        document.getElementById("save-"+game);
+    showToast("💾 بازی در این مرورگر ذخیره شد!");
 
-    if(localStorage.getItem(key)){
-
-        localStorage.removeItem(key);
-
-        button.innerHTML="☆ ذخیره کردن";
-
-        showToast("🗑️ بازی از ذخیره‌ها حذف شد");
-
-    }else{
-
-        localStorage.setItem(key,"true");
-
-        button.innerHTML="★ ذخیره شد";
-
-        showToast("⭐ بازی ذخیره شد");
-
-    }
 }
 
 
-/* LOAD SAVED */
+/* ================= COMMENT FOCUS ================= */
 
-["amirverse","robofeckr"].forEach(game=>{
+function focusComment(id){
 
-    if(localStorage.getItem("saved_"+game)){
+    const input=document.getElementById(id);
 
-        const button=
-            document.getElementById("save-"+game);
+    if(input){
 
-        if(button){
-            button.innerHTML="★ ذخیره شد";
-        }
+        input.focus();
+
+        input.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
     }
 
-});
-
-
-/* COMMENTS */
-
-function focusComment(game){
-
-    const input=
-        document.getElementById("comment-"+game);
-
-    input.focus();
-
-    input.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
 }
 
 
-function sendComment(game){
+/* ================= COMMENTS ================= */
 
-    const input=
-        document.getElementById("comment-"+game);
+function addComment(inputId,listId){
+
+    const input=document.getElementById(inputId);
+
+    if(!input) return;
 
     const text=input.value.trim();
 
     if(!text){
 
-        showToast("✏️ ابتدا نظر خود را بنویسید");
+        showToast("⚠️ اول نظر خودت را بنویس!");
 
         return;
     }
 
-    const list=
-        document.getElementById("list-"+game);
+    const comment=document.createElement("div");
 
-    const item=
-        document.createElement("div");
+    comment.className="comment-item";
 
-    item.className="commentItem";
+    comment.textContent="💬 "+text;
 
-    item.innerHTML=
-        "💬 "+escapeHTML(text);
-
-    list.prepend(item);
+    document.getElementById(listId).appendChild(comment);
 
     input.value="";
 
-    showToast("✅ نظر شما ثبت شد");
+    showToast("✅ نظر شما اضافه شد!");
+
 }
 
 
-/* SAFE HTML */
-
-function escapeHTML(text){
-
-    const div=document.createElement("div");
-
-    div.textContent=text;
-
-    return div.innerHTML;
-}
-
-
-/* TOAST */
+/* ================= TOAST ================= */
 
 let toastTimer;
 
 function showToast(message){
 
-    const toast=
-        document.getElementById("toast");
+    const toast=document.getElementById("toast");
 
     toast.textContent=message;
 
@@ -1543,42 +1546,61 @@ function showToast(message){
     clearTimeout(toastTimer);
 
     toastTimer=setTimeout(()=>{
-
         toast.classList.remove("show");
+    },2500);
 
-    },2800);
 }
 
 
-/* MOUSE LIGHT */
+/* ================= PARTICLES ================= */
+
+const particles=document.getElementById("particles");
+
+for(let i=0;i<55;i++){
+
+    const particle=document.createElement("div");
+
+    particle.className="particle";
+
+    particle.style.left=Math.random()*100+"%";
+
+    particle.style.animationDuration=
+        (5+Math.random()*10)+"s";
+
+    particle.style.animationDelay=
+        (-Math.random()*12)+"s";
+
+    particle.style.opacity=
+        (.25+Math.random()*.75);
+
+    particles.appendChild(particle);
+
+}
+
+
+/* ================= MOUSE LIGHT ================= */
 
 document.addEventListener("mousemove",(e)=>{
 
-    const x=
-        e.clientX/window.innerWidth*100;
+    const x=e.clientX;
+    const y=e.clientY;
 
-    const y=
-        e.clientY/window.innerHeight*100;
+    document.documentElement.style.setProperty(
+        "--mouse-x",
+        x+"px"
+    );
 
-    document.querySelector(".bg").style.background=`
-        radial-gradient(
-            circle at ${x}% ${y}%,
-            rgba(0,130,255,.08),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(125,55,255,.16),
-            transparent 32%
-        ),
-        #060814
-    `;
+    document.documentElement.style.setProperty(
+        "--mouse-y",
+        y+"px"
+    );
+
 });
 
 
-/* CARD 3D EFFECT */
+/* ================= CARD TILT ================= */
 
-document.querySelectorAll(".gameCard").forEach(card=>{
+document.querySelectorAll(".game-card").forEach(card=>{
 
     card.addEventListener("mousemove",(e)=>{
 
@@ -1587,18 +1609,17 @@ document.querySelectorAll(".gameCard").forEach(card=>{
         const x=e.clientX-rect.left;
         const y=e.clientY-rect.top;
 
-        const rotateX=
-            ((y/rect.height)-.5)*-6;
-
         const rotateY=
-            ((x/rect.width)-.5)*6;
+            ((x/rect.width)-.5)*8;
+
+        const rotateX=
+            ((y/rect.height)-.5)*-8;
 
         card.style.transform=
-        `perspective(900px)
-         rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)
-         translateY(-10px)
-         scale(1.02)`;
+            `translateY(-10px)
+             perspective(800px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)`;
 
     });
 
@@ -1611,18 +1632,86 @@ document.querySelectorAll(".gameCard").forEach(card=>{
 });
 
 
-/* ESC */
+/* ================= CREATOR CARD EFFECT ================= */
 
-document.addEventListener("keydown",(e)=>{
+document.querySelectorAll(".creator-card").forEach(card=>{
 
-    if(e.key==="Escape"){
-        showPage("games");
-    }
+    card.addEventListener("mousemove",(e)=>{
+
+        const rect=card.getBoundingClientRect();
+
+        const x=e.clientX-rect.left;
+        const y=e.clientY-rect.top;
+
+        const rotateY=
+            ((x/rect.width)-.5)*7;
+
+        const rotateX=
+            ((y/rect.height)-.5)*-7;
+
+        card.style.transform=
+            `translateY(-12px)
+             scale(1.025)
+             perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)`;
+
+    });
+
+    card.addEventListener("mouseleave",()=>{
+
+        card.style.transform="";
+
+    });
 
 });
+
+
+/* ================= HASH SUPPORT ================= */
+
+function loadHash(){
+
+    const hash=
+        location.hash.replace("#","");
+
+    const allowed=[
+        "home",
+        "games",
+        "amirverse",
+        "robofeckr",
+        "creators",
+        "about"
+    ];
+
+    if(allowed.includes(hash)){
+        showPage(hash);
+    }
+
+}
+
+window.addEventListener("hashchange",loadHash);
+
+
+/* ================= NAV HASH ================= */
+
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+        history.replaceState(
+            null,
+            "",
+            "#"+btn.dataset.page
+        );
+
+    });
+
+});
+
+
+loadHash();
 
 </script>
 
 </body>
 </html>
-```
